@@ -11,9 +11,11 @@ export const metadata: Metadata = {
   description: 'Podcast episode details',
 }
 
-export default function PodcastPage({ 
+export default async function PodcastPage({ 
   params,
 }: PageProps) {
+  // 即使现在没有实际的数据获取，我们也需要让组件是异步的
+  // 这样可以满足 Next.js 的类型要求
   return (
     <main className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
