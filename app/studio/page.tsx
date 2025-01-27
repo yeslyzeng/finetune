@@ -7,8 +7,6 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function StudioPage() {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState("00:00");
-  const [totalTime, setTotalTime] = useState("00:00");
 
   return (
     <div className="min-h-screen flex">
@@ -74,8 +72,8 @@ export default function StudioPage() {
                 <div className="w-1/3 h-full bg-[#E97A53] rounded-full"></div>
               </div>
               <div className="flex justify-between text-sm text-gray-500 mt-1">
-                <span>{currentTime}</span>
-                <span>{totalTime}</span>
+                <span>00:00</span>
+                <span>00:00</span>
               </div>
             </div>
 
