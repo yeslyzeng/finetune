@@ -93,14 +93,16 @@ export default function StudioPage() {
         </div>
 
         {/* 右侧内容区 */}
-        <div className="w-[60%] flex flex-col h-full bg-white">
+        <div className="w-[60%] flex flex-col h-screen bg-white">
           {/* 预览区域 */}
-          <div className="flex-1 flex items-center justify-center bg-white">
-            <span className="text-gray-400">Preview Area</span>
+          <div className="flex-1 bg-white flex items-center justify-center border-b border-gray-200">
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-2xl text-gray-400">Preview Area</span>
+            </div>
           </div>
 
           {/* 音频控制栏 */}
-          <div className="border-t border-gray-200 p-4 bg-white">
+          <div className="h-20 border-t border-gray-200 bg-white flex items-center justify-center">
             <div className="flex items-center justify-center gap-4">
               <Button
                 variant="ghost"
