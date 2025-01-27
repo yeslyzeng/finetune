@@ -95,10 +95,8 @@ export default function StudioPage() {
         {/* 右侧内容区 */}
         <div className="w-[60%] flex flex-col h-full bg-white">
           {/* 预览区域 */}
-          <div className="flex-1 p-6">
-            <div className="w-full h-full bg-white flex items-center justify-center">
-              <span className="text-gray-400">Preview Area</span>
-            </div>
+          <div className="flex-1 flex items-center justify-center">
+            <span className="text-gray-400">Preview Area</span>
           </div>
 
           {/* 音频控制栏 */}
