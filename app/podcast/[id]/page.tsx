@@ -1,6 +1,13 @@
 import { Play, SkipBack, SkipForward, Volume2 } from 'lucide-react';
 
-export default function PodcastPage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: {
+    id: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function PodcastPage({ params }: PageProps) {
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
