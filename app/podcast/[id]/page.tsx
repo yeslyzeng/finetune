@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   description: 'Podcast episode details',
 }
 
-export default async function PodcastPage({ params, searchParams }: PageProps) {
+export default async function PodcastPage({ params }: PageProps) {  // 这里只使用 params
   // 获取播客数据
   const episode = await getPodcastEpisode(params.id)
 
