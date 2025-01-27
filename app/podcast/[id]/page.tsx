@@ -4,7 +4,6 @@ interface PageProps {
   params: {
     id: string
   }
-  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export const metadata: Metadata = {
@@ -14,7 +13,6 @@ export const metadata: Metadata = {
 
 export default function PodcastPage({ 
   params,
-  searchParams,
 }: PageProps) {
   return (
     <main className="min-h-screen p-8">
