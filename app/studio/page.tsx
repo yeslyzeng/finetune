@@ -9,16 +9,26 @@ import { Button } from "@/components/ui/button";
 export default function StudioPage() {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // 音频控制函数占位
   const handlePlayPause = () => setIsPlaying(!isPlaying);
   const handleSkipBack = () => console.log('Skip back');
   const handleSkipForward = () => console.log('Skip forward');
   const handleDownload = () => console.log('Download');
+  const handleExport = () => console.log('Export');
 
   return (
     <div className="min-h-screen flex">
       {/* 左侧面板 - 40% 宽度 */}
       <div className="w-[40%] border-r border-gray-200 p-6 space-y-6 bg-white">
+        {/* 顶部导出按钮 */}
+        <div className="flex justify-end">
+          <Button 
+            className="bg-orange-500 hover:bg-orange-600 text-white rounded-md"
+            onClick={handleExport}
+          >
+            Export
+          </Button>
+        </div>
+
         {/* 上传区域 */}
         <div className="space-y-4">
           <h2 className="text-sm font-medium text-[#404040]">Upload the startup materials</h2>
@@ -43,36 +53,34 @@ export default function StudioPage() {
         {/* 表单区域 */}
         <div className="space-y-6">
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-[#404040]">Title</label>
+            <label className="block text-sm font-medium text-[#404040]">Choose the preferred tone for podcast</label>
             <Input 
-              className="w-full border border-gray-200 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+              className="w-full bg-gray-50 border border-gray-200 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
               placeholder="Choose the preferred tone for podcast" 
             />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-[#404040]">Slug</label>
-            <div className="flex gap-2">
-              <Input 
-                className="flex-1 border border-gray-200 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-                placeholder="Create the name of the host"
-                defaultValue="sanity-studio-v3-embedded-inside-your-project"
-              />
-              <Button 
-                className="px-4 py-2 bg-gray-100 text-[#404040] rounded-md hover:bg-gray-200 transition-colors"
-                onClick={() => console.log('Generate clicked')}
-              >
-                Generate
-              </Button>
-            </div>
+            <label className="block text-sm font-medium text-[#404040]">Create the name of the host</label>
+            <Input 
+              className="w-full bg-gray-50 border border-gray-200 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+              placeholder="Create the name of the host"
+            />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-[#404040]">Content</label>
+            <label className="block text-sm font-medium text-[#404040]">Create the bio of the host</label>
             <Textarea 
-              className="w-full min-h-[200px] border border-gray-200 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
-              placeholder="Enter content here..."
-              defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a massa sodales, efficitur nunc vitae, aliquam lorem. Nulla et vehicula mauris."
+              className="w-full bg-gray-50 border border-gray-200 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+              placeholder="Create the bio of the host"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-[#404040]">Create the name of the guest</label>
+            <Input 
+              className="w-full bg-gray-50 border border-gray-200 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent" 
+              placeholder="Create the name of the guest"
             />
           </div>
         </div>
@@ -94,7 +102,7 @@ export default function StudioPage() {
               variant="ghost"
               size="icon"
               onClick={handleSkipBack}
-              className="hover:bg-gray-100 rounded-full"
+              className="hover:bg-gray-100 rounded-full text-orange-500"
             >
               <SkipBack className="w-6 h-6" />
             </Button>
@@ -103,7 +111,7 @@ export default function StudioPage() {
               variant="ghost"
               size="icon"
               onClick={handlePlayPause}
-              className="hover:bg-gray-100 rounded-full"
+              className="hover:bg-gray-100 rounded-full text-orange-500"
             >
               {isPlaying ? (
                 <Pause className="w-6 h-6" />
@@ -116,7 +124,7 @@ export default function StudioPage() {
               variant="ghost"
               size="icon"
               onClick={handleSkipForward}
-              className="hover:bg-gray-100 rounded-full"
+              className="hover:bg-gray-100 rounded-full text-orange-500"
             >
               <SkipForward className="w-6 h-6" />
             </Button>
@@ -125,7 +133,7 @@ export default function StudioPage() {
               variant="ghost"
               size="icon"
               onClick={handleDownload}
-              className="hover:bg-gray-100 rounded-full"
+              className="hover:bg-gray-100 rounded-full text-orange-500"
             >
               <Download className="w-6 h-6" />
             </Button>
