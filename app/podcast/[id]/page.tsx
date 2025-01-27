@@ -10,6 +10,13 @@ interface PodcastEpisode {
   audioUrl: string
 }
 
+interface PageProps {
+  params: {
+    id: string
+  }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
 // 模拟获取数据的函数
 async function getPodcastEpisode(id: string): Promise<PodcastEpisode> {
   // 模拟 API 延迟
@@ -30,11 +37,7 @@ export const metadata: Metadata = {
   description: 'Podcast episode details',
 }
 
-export default async function PodcastPage({ 
-  params 
-}: {
-  params: { id: string }
-}) {
+export default async function PodcastPage({ params, searchParams }: PageProps) {
   // 获取播客数据
   const episode = await getPodcastEpisode(params.id)
 
