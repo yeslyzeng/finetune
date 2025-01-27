@@ -13,25 +13,50 @@ export default function StudioPage() {
       <div className="w-[40%] border-r border-gray-200 p-6 space-y-6 bg-white">
         {/* 上传区域 */}
         <div className="space-y-4">
-          <div className="flex items-center gap-2">
-            <Upload className="w-4 h-4" />
-            <span className="font-medium">Upload</span>
+          <h2 className="text-sm font-medium text-gray-900">Upload the startup materials</h2>
+          <div className="flex gap-2">
+            <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg text-sm">
+              <Upload className="w-4 h-4" />
+              Local upload
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg text-sm">
+              Paste file link
+            </button>
           </div>
-          <Input placeholder="Role" />
-          <Input placeholder="Name" />
         </div>
 
-        {/* 转写内容 */}
+        {/* 表单区域 */}
         <div className="space-y-4">
-          <h2 className="font-medium">Transcript</h2>
           <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span>00:00</span>
-              <span>Content</span>
-            </div>
-            <div className="space-y-2">
-              {/* 这里可以放转写的内容列表 */}
-            </div>
+            <label className="text-sm font-medium text-gray-900">Choose the preferred tone for podcast</label>
+            <Input 
+              className="bg-gray-50 text-gray-900" 
+              placeholder="Choose the preferred tone for podcast" 
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-900">Create the name of the host</label>
+            <Input 
+              className="bg-gray-50 text-gray-900" 
+              placeholder="Create the name of the host" 
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-900">Create the bio of the host</label>
+            <Textarea 
+              className="bg-gray-50 text-gray-900" 
+              placeholder="Create the bio of the host"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-900">Create the name of the guest</label>
+            <Input 
+              className="bg-gray-50 text-gray-900" 
+              placeholder="Create the name of the guest" 
+            />
           </div>
         </div>
       </div>
@@ -49,7 +74,7 @@ export default function StudioPage() {
         {/* 主要内容区域 */}
         <div className="flex-1 p-6">
           <Textarea 
-            className="w-full h-full resize-none border border-gray-200"
+            className="w-full h-full resize-none border border-gray-200 bg-white text-gray-900"
             placeholder="Generated content will appear here..."
           />
         </div>
