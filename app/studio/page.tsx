@@ -16,7 +16,7 @@ export default function StudioPage() {
   const handleExport = () => console.log('Export');
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="h-screen flex flex-col bg-white">
       {/* 顶部导航栏 */}
       <header className="w-full border-b border-gray-200 p-4 bg-white">
         <div className="w-full pr-6">
@@ -32,9 +32,9 @@ export default function StudioPage() {
       </header>
 
       {/* 主要内容区域 */}
-      <div className="flex flex-1 bg-white">
+      <div className="flex flex-1 bg-white overflow-hidden">
         {/* 左侧面板 - 40% 宽度 */}
-        <div className="w-[40%] border-r border-gray-200 p-6 space-y-6 bg-white">
+        <div className="w-[40%] border-r border-gray-200 p-6 space-y-6 bg-white overflow-y-auto">
           {/* 上传区域 */}
           <div className="space-y-4">
             <h2 className="text-sm font-medium text-[#404040]">Upload the startup materials</h2>
@@ -93,9 +93,9 @@ export default function StudioPage() {
         </div>
 
         {/* 右侧内容区 */}
-        <div className="w-[60%] flex flex-col h-screen bg-white">
+        <div className="w-[60%] flex flex-col bg-white">
           {/* 预览区域 */}
-          <div className="flex-1 bg-white flex items-center justify-center border-b border-gray-200">
+          <div className="flex-1 bg-white flex items-center justify-center">
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-2xl text-gray-400">Preview Area</span>
             </div>
