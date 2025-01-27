@@ -19,13 +19,15 @@ export default function StudioPage() {
     <div className="min-h-screen flex flex-col">
       {/* 顶部导航栏 */}
       <header className="w-full border-b border-gray-200 p-4">
-        <div className="container mx-auto flex justify-end">
-          <Button 
-            className="bg-orange-500 hover:bg-orange-600 text-white rounded-md"
-            onClick={handleExport}
-          >
-            Export
-          </Button>
+        <div className="w-full pr-6">
+          <div className="flex justify-end">
+            <Button 
+              className="bg-orange-500 hover:bg-orange-600 text-white rounded-md"
+              onClick={handleExport}
+            >
+              Export
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -94,7 +96,7 @@ export default function StudioPage() {
         <div className="w-[60%] flex flex-col h-full bg-white">
           {/* 预览区域 */}
           <div className="flex-1 p-6">
-            <div className="w-full h-full bg-gray-50 rounded-lg flex items-center justify-center">
+            <div className="w-full h-full bg-white flex items-center justify-center">
               <span className="text-gray-400">Preview Area</span>
             </div>
           </div>
