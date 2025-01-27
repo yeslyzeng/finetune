@@ -11,7 +11,7 @@ export default function PodcastPage({ params }: { params: { id: string } }) {
           
           {/* 右侧文字信息 */}
           <div className="space-y-4">
-            <h1 className="text-3xl font-bold">Titike EP</h1>
+            <h1 className="text-3xl font-bold">Episode {params.id}</h1>
             <p className="text-muted-foreground">Channel name</p>
             <div className="bg-card rounded-lg p-4">
               <h2 className="font-semibold mb-2">Transcript</h2>
