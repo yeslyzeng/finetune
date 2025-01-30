@@ -1,34 +1,19 @@
 // marketplace/components/AudioPlayer/types.ts
-
 export interface Chapter {
   title: string;
   duration: string;
   startTime: string;
 }
 
-
 export interface Track {
   id: string;
   title: string;
   channel: string;
   url: string;
-  thumbnail?: string;
+  thumbnail: string;  // 确保这是必需的
   description: string;
   duration: string;
   date: string;
-  chapters: Chapter[];
-  transcript?: string;  // 添加 transcript 属性
-}
-
-export interface Track {
-  id: string;
-  title: string;
-  channel: string;
-  url: string;
-  thumbnail?: string;
-  description: string;
-  duration: string;  // 改为string类型
-  date: string;      // 添加date属性
   chapters: Chapter[];
 }
 

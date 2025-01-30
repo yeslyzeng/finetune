@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Play, Menu, X, Volume2 } from 'lucide-react';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import type { Track } from '@/app/marketplace/components/AudioPlayer/types';
@@ -100,6 +101,11 @@ export default function MarketplacePage() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState<string | null>(null);
 
+  // Add useEffect for debugging
+  useEffect(() => {
+    console.log('Current track thumbnail:', currentTrack.thumbnail);
+  }, [currentTrack.thumbnail]);
+
   const handlePlay = (track: Track) => {
     setCurrentTrack(track);
     setShowSidebar(true);
@@ -152,11 +158,21 @@ export default function MarketplacePage() {
       onClick={(e) => handleCardClick(e, track)}
     >
       <div className="relative aspect-[16/9] w-full">
-        <img 
-          src={track.thumbnail}
-          alt={track.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        />
+        <div className="relative w-full h-full">
+          <Image 
+            src={track.thumbnail}
+            alt={track.title}
+            fill
+            className="object-cover opacity-20"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
+            onError={(e) => {
+              console.error('Image load error:', e);
+              const target = e.target as HTMLImageElement;
+              target.src = '/episode-pic.jpg';
+            }}
+          />
+        </div>
         
         <div className="absolute inset-0 bg-gradient-to-b from-[#FF4000]/50 to-[#FF4000]"></div>
         
@@ -195,11 +211,19 @@ export default function MarketplacePage() {
       className="bg-white rounded-lg shadow p-4 cursor-pointer"
       onClick={(e) => handleCardClick(e, track)}
     >
-      <div className="aspect-square bg-gray-100 rounded-md mb-2 overflow-hidden">
-        <img 
+      <div className="relative aspect-square bg-gray-100 rounded-md mb-2 overflow-hidden">
+        <Image 
           src={track.thumbnail}
           alt={track.title}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+          priority
+          onError={(e) => {
+            console.error('Image load error:', e);
+            const target = e.target as HTMLImageElement;
+            target.src = '/episode-pic.jpg';
+          }}
         />
       </div>
       <h3 className="font-semibold truncate hover:underline">{track.title}</h3>
@@ -222,11 +246,19 @@ export default function MarketplacePage() {
       className="flex items-center gap-4 bg-white rounded-lg shadow p-4 cursor-pointer"
       onClick={(e) => handleCardClick(e, track)}
     >
-      <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
-        <img 
+      <div className="relative w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
+        <Image 
           src={track.thumbnail}
           alt={track.title}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 64px, 64px"
+          priority
+          onError={(e) => {
+            console.error('Image load error:', e);
+            const target = e.target as HTMLImageElement;
+            target.src = '/episode-pic.jpg';
+          }}
         />
       </div>
       <div className="flex-1 min-w-0">
@@ -299,14 +331,22 @@ export default function MarketplacePage() {
         </div>
 
         {/* Right Column - Current Episode */}
-        <div className={`fixed md:relative md:w-1/3 inset-y-0 right-0 w-full md:translate-x-0 transform transition-transform duration-300 ${showSidebar ? 'translate-x-0' : 'translate-x-full'} bg-[#FEEFDD] border-l border-gray-200 z-40 overflow-y-auto`}>
+        <div className={`fixed md:relative md:w-1/3 inset-y-0 right-0 w-full md:translate-x-0 transform transition-transform duration-300 ${showSidebar ? 'translate-x-0': 'translate-x-full'} bg-[#FEEFDD] border-l border-gray-200 z-40 overflow-y-auto`}>
           <div className="p-6">
             <div className="bg-white rounded-lg shadow p-4">
-              <div className="aspect-video bg-gray-100 rounded-md mb-4 overflow-hidden">
-                <img 
-                  src={currentTrack.thumbnail}
+              <div className="relative aspect-video bg-gray-100 rounded-md mb-4 overflow-hidden">
+                <Image 
+                  src={currentTrack.thumbnail}  
                   alt={currentTrack.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  priority
+                  onError={(e) => {
+                    console.error('Image load error:', e);
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/episode-pic.jpg';
+                  }}
                 />
               </div>
               <div className="mb-4">
