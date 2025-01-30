@@ -45,7 +45,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         <div className="flex items-center gap-4 w-1/3">
           <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
             <img 
-              src={currentTrack.thumbnail || '/placeholder.png'} 
+              src={currentTrack.thumbnail || '/episode-pic.jpg'} 
               alt={currentTrack.title}
               className="w-full h-full object-cover rounded"
             />

@@ -8,19 +8,6 @@ import type { Track } from '@/app/marketplace/components/AudioPlayer/types';
 
 const AudioPlayer = dynamic(() => import('./components/AudioPlayer'), { ssr: false });
 
-// 定义图片尺寸常量
-const IMAGE_SIZES = {
-  recommended: "800x450",  // 16:9 宽高比
-  popular: "400x400",      // 正方形
-  newArrivals: "160x160"   // 小正方形缩略图
-} as const;
-
-// 使用 placehold.co 作为占位图片服务
-const getPlaceholderUrl = (size: string, text: string) => 
-  `/api/placeholder/${size}?text=${encodeURIComponent(text)}`;
-
-const defaultImage = getPlaceholderUrl("400x400", "No Image");
-
 // Define categories
 const categories = [
   "Marketing-Focused Startups",
@@ -35,7 +22,7 @@ const SAMPLE_TRACKS: Track[] = [
     title: "Revolutionizing African Finance: The Fingo Africa Story with Kolento",
     channel: "Fingo Africa",
     url: "https://example.com/audio1.mp3",
-    thumbnail: getPlaceholderUrl(IMAGE_SIZES.recommended, "Fingo Africa Podcast"),
+    thumbnail: "/episode-pic.jpg",
     description: "In this episode of our podcast, host Jack sits down with Kolento, the visionary founder of Fingo Africa, the first pan-African neobank focused on youth financial empowerment. Discover how this innovative fintech startup is reshaping the banking landscape across Africa.",
     duration: "23:14",
     date: "Jan 24",
@@ -50,7 +37,7 @@ const SAMPLE_TRACKS: Track[] = [
     title: "Building Sustainable Tech Communities in East Africa",
     channel: "Tech Horizons",
     url: "https://example.com/audio2.mp3",
-    thumbnail: getPlaceholderUrl(IMAGE_SIZES.recommended, "Tech Horizons Podcast"),
+    thumbnail: "/episode-pic.jpg",
     description: "Join us in conversation with leading tech community builders from Kenya, Tanzania, and Uganda as they share their experiences in fostering sustainable tech ecosystems in East Africa.",
     duration: "25:30",
     date: "Jan 25",
@@ -65,7 +52,7 @@ const SAMPLE_TRACKS: Track[] = [
     title: "Healthcare Innovation in Nigeria: TeleHealth Revolution",
     channel: "HealthTech Africa",
     url: "https://example.com/audio3.mp3",
-    thumbnail: getPlaceholderUrl(IMAGE_SIZES.popular, "HealthTech Africa"),
+    thumbnail: "/episode-pic.jpg",
     description: "Exploring the rapid growth of telehealth solutions in Nigeria and their impact on healthcare accessibility.",
     duration: "28:45",
     date: "Jan 26",
@@ -80,7 +67,7 @@ const SAMPLE_TRACKS: Track[] = [
     title: "Sustainable Agriculture Tech in Rwanda",
     channel: "AgriTech Today",
     url: "https://example.com/audio4.mp3",
-    thumbnail: getPlaceholderUrl(IMAGE_SIZES.popular, "AgriTech Today"),
+    thumbnail: "/episode-pic.jpg",
     description: "How Rwandan startups are leveraging technology to revolutionize agricultural practices and improve food security.",
     duration: "24:20",
     date: "Jan 27",
@@ -95,7 +82,7 @@ const SAMPLE_TRACKS: Track[] = [
     title: "Digital Payments Revolution in Ghana",
     channel: "FinTech Focus",
     url: "https://example.com/audio5.mp3",
-    thumbnail: getPlaceholderUrl(IMAGE_SIZES.popular, "FinTech Focus"),
+    thumbnail: "/episode-pic.jpg",
     description: "Examining the explosive growth of mobile money and digital payments in Ghana's financial ecosystem.",
     duration: "26:15",
     date: "Jan 28",
@@ -138,15 +125,6 @@ export default function MarketplacePage() {
     navigateToEpisode(track);
   };
 
-  const getImageUrl = (track: Track, type: 'Popular' | 'New' | 'Recommended') => {
-    const size = type === 'Popular' ? IMAGE_SIZES.popular : 
-                 type === 'New' ? IMAGE_SIZES.newArrivals :
-                 IMAGE_SIZES.recommended;
-                 
-    const text = `${type}+${track.title.slice(0, 20)}`;
-    return getPlaceholderUrl(size, text);
-  };
-
   const renderTrackDescription = (track: Track, isExpanded: boolean = false, isRecommended: boolean = false) => {
     if (isRecommended) return null;
 
@@ -175,7 +153,7 @@ export default function MarketplacePage() {
     >
       <div className="relative aspect-[16/9] w-full">
         <img 
-          src={getImageUrl(track, 'Recommended')}
+          src={track.thumbnail}
           alt={track.title}
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
@@ -219,7 +197,7 @@ export default function MarketplacePage() {
     >
       <div className="aspect-square bg-gray-100 rounded-md mb-2 overflow-hidden">
         <img 
-          src={getImageUrl(track, 'Popular')}
+          src={track.thumbnail}
           alt={track.title}
           className="w-full h-full object-cover"
         />
@@ -246,7 +224,7 @@ export default function MarketplacePage() {
     >
       <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
         <img 
-          src={getImageUrl(track, 'New')}
+          src={track.thumbnail}
           alt={track.title}
           className="w-full h-full object-cover"
         />
@@ -326,7 +304,7 @@ export default function MarketplacePage() {
             <div className="bg-white rounded-lg shadow p-4">
               <div className="aspect-video bg-gray-100 rounded-md mb-4 overflow-hidden">
                 <img 
-                  src={currentTrack.thumbnail || defaultImage}
+                  src={currentTrack.thumbnail}
                   alt={currentTrack.title}
                   className="w-full h-full object-cover"
                 />

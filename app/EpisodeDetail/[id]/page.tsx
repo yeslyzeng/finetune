@@ -13,7 +13,7 @@ const getTrackById = (id: string): Track => {
       title: "Revolutionizing African Finance: The Fingo Africa Story with Kolento",
       channel: "Fingo Africa",
       url: "https://example.com/audio1.mp3",
-      thumbnail: "/api/placeholder/800/450?text=Fingo+Africa+Podcast",
+      thumbnail: "/episode-pic.jpg",
       description: "In this episode of our podcast, host Jack sits down with Kolento, the visionary founder of Fingo Africa...",
       duration: "23:14",
       date: "Jan 24",
@@ -26,7 +26,6 @@ const getTrackById = (id: string): Track => {
         { title: "Market Strategy & Closing Thoughts", duration: "04:29", startTime: "22:31" }
       ]
     }
-    // ... 其他示例数据
   ];
   
   return SAMPLE_TRACKS.find(track => track.id === id) || SAMPLE_TRACKS[0];

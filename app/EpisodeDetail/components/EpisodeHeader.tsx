@@ -10,11 +10,12 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ track, onPlay, isPlaying 
     <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
       <div className="flex gap-6">
         <div className="w-64 h-64 rounded-lg overflow-hidden">
-          <img
-            src={track.thumbnail}
-            alt={track.title}
-            className="w-full h-full object-cover"
-          />
+        <img
+          src={track.thumbnail ? track.thumbnail : "/episode-pic.jpg"}
+          alt={track.title}
+          className="w-full h-full object-cover"
+        />
+
         </div>
         <div className="flex-1">
           <div className="flex justify-between items-start mb-4">

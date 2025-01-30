@@ -12,7 +12,7 @@ const PlayerSidebar: React.FC<PlayerSidebarProps> = ({ track, isOpen, onChapterC
         <div className="bg-white rounded-lg shadow p-4">
           <div className="aspect-video bg-gray-100 rounded-md mb-4 overflow-hidden">
             <img 
-              src={track.thumbnail}
+              src={track.thumbnail || "/episode-pic.jpg"}
               alt={track.title}
               className="w-full h-full object-cover"
             />
