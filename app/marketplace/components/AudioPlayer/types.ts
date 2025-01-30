@@ -6,6 +6,20 @@ export interface Chapter {
   startTime: string;
 }
 
+
+export interface Track {
+  id: string;
+  title: string;
+  channel: string;
+  url: string;
+  thumbnail?: string;
+  description: string;
+  duration: string;
+  date: string;
+  chapters: Chapter[];
+  transcript?: string;  // 添加 transcript 属性
+}
+
 export interface Track {
   id: string;
   title: string;

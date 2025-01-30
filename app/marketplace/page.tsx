@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { Search, Play, Menu, X, Volume2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import type { Track } from './components/AudioPlayer/types';
+import { useRouter } from 'next/navigation';
+import type { Track } from '@/app/marketplace/components/AudioPlayer/types';
 
 const AudioPlayer = dynamic(() => import('./components/AudioPlayer'), { ssr: false });
 
@@ -14,16 +15,9 @@ const IMAGE_SIZES = {
   newArrivals: "160x160"   // 小正方形缩略图
 } as const;
 
-const COLORS = {
-  background: 'FEEFDD',  // 页面背景色
-  primary: 'FF4000',     // 橙色
-  secondary: 'FAAA8D',   // 珊瑚粉
-  dark: '201E1F',        // 深色文字
-};
-
 // 使用 placehold.co 作为占位图片服务
 const getPlaceholderUrl = (size: string, text: string) => 
-  `https://placehold.co/${size}/FF4000/FFFFFF?text=${encodeURIComponent(text)}`;
+  `/api/placeholder/${size}?text=${encodeURIComponent(text)}`;
 
 const defaultImage = getPlaceholderUrl("400x400", "No Image");
 
@@ -42,51 +36,79 @@ const SAMPLE_TRACKS: Track[] = [
     channel: "Fingo Africa",
     url: "https://example.com/audio1.mp3",
     thumbnail: getPlaceholderUrl(IMAGE_SIZES.recommended, "Fingo Africa Podcast"),
-    description: "In this episode of our podcast, host Jack sits down with Kolento, the visionary founder of Fingo Africa, the first pan-African neobank focused on youth financial empowerment. Discover how this innovative fintech startup is reshaping the banking landscape across Africa, making financial services more accessible to millions of young Africans through digital solutions.",
+    description: "In this episode of our podcast, host Jack sits down with Kolento, the visionary founder of Fingo Africa, the first pan-African neobank focused on youth financial empowerment. Discover how this innovative fintech startup is reshaping the banking landscape across Africa.",
     duration: "23:14",
     date: "Jan 24",
     chapters: [
       { title: "The Vision Behind Fingo", duration: "03:45", startTime: "00:00" },
       { title: "African Financial Landscape", duration: "04:45", startTime: "03:46" },
-      { title: "Product Innovation & Technology", duration: "04:44", startTime: "08:31" },
-      { title: "Growth & Performance", duration: "04:29", startTime: "13:16" },
-      { title: "Business Model & Future Plans", duration: "04:44", startTime: "17:46" },
-      { title: "Market Strategy & Closing Thoughts", duration: "04:29", startTime: "22:31" }
+      { title: "Business Model & Future Plans", duration: "04:44", startTime: "17:46" }
     ]
   },
   {
     id: '2',
-    title: "Fundraising for Startups",
-    channel: "VC Insights",
+    title: "Building Sustainable Tech Communities in East Africa",
+    channel: "Tech Horizons",
     url: "https://example.com/audio2.mp3",
-    thumbnail: getPlaceholderUrl(IMAGE_SIZES.recommended, "Fundraising Podcast"),
-    description: "Join us for an insightful discussion on startup fundraising strategies with leading venture capitalists. Learn about current market trends, pitch deck essentials, and how to approach potential investors in today's competitive landscape.",
-    duration: "15:30",
-    date: "Jan 23",
+    thumbnail: getPlaceholderUrl(IMAGE_SIZES.recommended, "Tech Horizons Podcast"),
+    description: "Join us in conversation with leading tech community builders from Kenya, Tanzania, and Uganda as they share their experiences in fostering sustainable tech ecosystems in East Africa.",
+    duration: "25:30",
+    date: "Jan 25",
     chapters: [
-      { title: "Understanding the VC Landscape", duration: "05:00", startTime: "00:00" },
-      { title: "Pitch Deck Essentials", duration: "04:30", startTime: "05:00" },
-      { title: "Funding Rounds Explained", duration: "05:30", startTime: "09:30" }
+      { title: "Introduction to East African Tech", duration: "05:00", startTime: "00:00" },
+      { title: "Community Building Challenges", duration: "10:15", startTime: "05:00" },
+      { title: "Future of Tech in East Africa", duration: "10:15", startTime: "15:15" }
     ]
   },
   {
     id: '3',
-    title: "Recruitment Best Practices",
-    channel: "HR Hub",
+    title: "Healthcare Innovation in Nigeria: TeleHealth Revolution",
+    channel: "HealthTech Africa",
     url: "https://example.com/audio3.mp3",
-    thumbnail: getPlaceholderUrl(IMAGE_SIZES.recommended, "Recruitment Podcast"),
-    description: "Expert HR leaders share their insights on modern recruitment strategies, from building attractive job descriptions to creating an inclusive hiring process. Perfect for startups looking to build their dream team.",
-    duration: "18:45",
-    date: "Jan 22",
+    thumbnail: getPlaceholderUrl(IMAGE_SIZES.popular, "HealthTech Africa"),
+    description: "Exploring the rapid growth of telehealth solutions in Nigeria and their impact on healthcare accessibility.",
+    duration: "28:45",
+    date: "Jan 26",
     chapters: [
-      { title: "Modern Recruitment Strategies", duration: "04:00", startTime: "00:00" },
-      { title: "Building Inclusive Teams", duration: "05:00", startTime: "04:00" },
-      { title: "Retention Strategies", duration: "04:30", startTime: "09:00" }
+      { title: "Current Healthcare Challenges", duration: "09:15", startTime: "00:00" },
+      { title: "TeleHealth Solutions", duration: "09:15", startTime: "09:15" },
+      { title: "Future Outlook", duration: "10:15", startTime: "19:30" }
+    ]
+  },
+  {
+    id: '4',
+    title: "Sustainable Agriculture Tech in Rwanda",
+    channel: "AgriTech Today",
+    url: "https://example.com/audio4.mp3",
+    thumbnail: getPlaceholderUrl(IMAGE_SIZES.popular, "AgriTech Today"),
+    description: "How Rwandan startups are leveraging technology to revolutionize agricultural practices and improve food security.",
+    duration: "24:20",
+    date: "Jan 27",
+    chapters: [
+      { title: "Traditional vs Modern Farming", duration: "08:10", startTime: "00:00" },
+      { title: "Tech Integration in Agriculture", duration: "08:10", startTime: "08:10" },
+      { title: "Success Stories", duration: "08:00", startTime: "16:20" }
+    ]
+  },
+  {
+    id: '5',
+    title: "Digital Payments Revolution in Ghana",
+    channel: "FinTech Focus",
+    url: "https://example.com/audio5.mp3",
+    thumbnail: getPlaceholderUrl(IMAGE_SIZES.popular, "FinTech Focus"),
+    description: "Examining the explosive growth of mobile money and digital payments in Ghana's financial ecosystem.",
+    duration: "26:15",
+    date: "Jan 28",
+    chapters: [
+      { title: "Mobile Money Evolution", duration: "08:45", startTime: "00:00" },
+      { title: "Market Dynamics", duration: "08:45", startTime: "08:45" },
+      { title: "Future Trends", duration: "08:45", startTime: "17:30" }
     ]
   }
 ];
 
 export default function MarketplacePage() {
+  const router = useRouter();
   const [currentTrack, setCurrentTrack] = useState<Track>(SAMPLE_TRACKS[0]);
   const [showSidebar, setShowSidebar] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState<string | null>(null);
@@ -96,10 +118,24 @@ export default function MarketplacePage() {
     setShowSidebar(true);
   };
 
+  const navigateToEpisode = (track: Track) => {
+    router.push(`/EpisodeDetail/${track.id}`);
+  };
+
   const handleTrackEnd = () => {
     const currentIndex = SAMPLE_TRACKS.findIndex(track => track.id === currentTrack.id);
     const nextTrack = SAMPLE_TRACKS[(currentIndex + 1) % SAMPLE_TRACKS.length];
     setCurrentTrack(nextTrack);
+  };
+
+  const handleCardClick = (e: React.MouseEvent, track: Track) => {
+    if ((e.target as HTMLElement).closest('.play-button')) {
+      return;
+    }
+    
+    e.preventDefault();
+    e.stopPropagation();
+    navigateToEpisode(track);
   };
 
   const getImageUrl = (track: Track, type: 'Popular' | 'New' | 'Recommended') => {
@@ -122,7 +158,7 @@ export default function MarketplacePage() {
         {track.description.length > 150 && (
           <button 
             onClick={() => setExpandedDescription(expandedDescription === track.id ? null : track.id)}
-            className="absolute right-0 bottom-0 bg-white pl-2 text-primary text-sm hover:text-primary-dark"
+            className="absolute right-0 bottom-0 bg-white pl-2 text-[#FF4000] text-sm hover:text-[#FF4000]/80"
           >
             {expandedDescription === track.id ? 'Show less' : 'Show more'}
           </button>
@@ -132,7 +168,11 @@ export default function MarketplacePage() {
   };
 
   const renderRecommendedCard = (track: Track) => (
-    <div key={track.id} className="relative bg-primary text-white rounded-lg overflow-hidden">
+    <div 
+      key={track.id} 
+      className="relative bg-[#FF4000] text-white rounded-lg overflow-hidden cursor-pointer"
+      onClick={(e) => handleCardClick(e, track)}
+    >
       <div className="relative aspect-[16/9] w-full">
         <img 
           src={getImageUrl(track, 'Recommended')}
@@ -140,12 +180,12 @@ export default function MarketplacePage() {
           className="absolute inset-0 w-full h-full object-cover opacity-20"
         />
         
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FF4000]/50 to-[#FF4000]"></div>
         
         <div className="absolute inset-0 p-6 flex flex-col">
           <div className="mb-auto">
             <p className="text-sm text-white/80 mb-3">Episode • {track.channel}</p>
-            <h2 className="text-xl font-bold leading-tight min-h-[3.5rem] line-clamp-2">
+            <h2 className="text-xl font-bold leading-tight min-h-[3.5rem] line-clamp-2 hover:underline">
               {track.title}
             </h2>
           </div>
@@ -157,10 +197,13 @@ export default function MarketplacePage() {
               <span>{track.duration}</span>
             </div>
             <button 
-              onClick={() => handlePlay(track)}
-              className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors group"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePlay(track);
+              }}
+              className="play-button w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors group"
             >
-              <Play className="w-5 h-5 text-primary group-hover:text-primary-dark" />
+              <Play className="w-5 h-5 text-[#FF4000] group-hover:text-[#FF4000]/80" />
             </button>
           </div>
         </div>
@@ -168,15 +211,59 @@ export default function MarketplacePage() {
     </div>
   );
 
-  const renderChapters = (track: Track) => (
-    <div className="space-y-2">
-      {track.chapters.map((chapter, index) => (
-        <div key={index} className="flex items-center gap-2 text-sm">
-          <Play className="w-4 h-4" />
-          <span className="flex-1">{chapter.title}</span>
-          <span className="text-gray-500">{chapter.startTime}</span>
-        </div>
-      ))}
+  const renderPopularCard = (track: Track) => (
+    <div 
+      key={track.id} 
+      className="bg-white rounded-lg shadow p-4 cursor-pointer"
+      onClick={(e) => handleCardClick(e, track)}
+    >
+      <div className="aspect-square bg-gray-100 rounded-md mb-2 overflow-hidden">
+        <img 
+          src={getImageUrl(track, 'Popular')}
+          alt={track.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <h3 className="font-semibold truncate hover:underline">{track.title}</h3>
+      <p className="text-sm text-gray-600 truncate">{track.channel}</p>
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          handlePlay(track);
+        }}
+        className="play-button mt-2 w-8 h-8 bg-white text-[#FF4000] rounded-full flex items-center justify-center hover:bg-gray-50 shadow-lg"
+      >
+        <Play className="w-4 h-4" />
+      </button>
+    </div>
+  );
+
+  const renderNewArrivalCard = (track: Track) => (
+    <div 
+      key={track.id} 
+      className="flex items-center gap-4 bg-white rounded-lg shadow p-4 cursor-pointer"
+      onClick={(e) => handleCardClick(e, track)}
+    >
+      <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
+        <img 
+          src={getImageUrl(track, 'New')}
+          alt={track.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="flex-1 min-w-0">
+        <h3 className="font-semibold truncate hover:underline">{track.title}</h3>
+        <p className="text-sm text-gray-600 truncate">{track.channel}</p>
+      </div>
+      <button 
+        onClick={(e) => {
+          e.stopPropagation();
+          handlePlay(track);
+        }}
+        className="play-button w-8 h-8 bg-white text-[#FF4000] rounded-full flex items-center justify-center hover:bg-gray-50 shadow-lg"
+      >
+        <Play className="w-4 h-4" />
+      </button>
     </div>
   );
 
@@ -220,25 +307,7 @@ export default function MarketplacePage() {
           <div className="mb-12">
             <h2 className="text-xl font-semibold mb-4">Popular</h2>
             <div className="grid grid-cols-3 gap-4">
-              {SAMPLE_TRACKS.map((track) => (
-                <div key={track.id} className="bg-white rounded-lg shadow p-4">
-                  <div className="aspect-square bg-gray-100 rounded-md mb-2 overflow-hidden">
-                    <img 
-                      src={getImageUrl(track, 'Popular')}
-                      alt={track.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="font-semibold truncate">{track.title}</h3>
-                  <p className="text-sm text-gray-600 truncate">{track.channel}</p>
-                  <button 
-                    onClick={() => handlePlay(track)}
-                    className="mt-2 flex items-center gap-2 text-primary hover:text-primary-dark"
-                  >
-                    <Play className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
+              {SAMPLE_TRACKS.slice(0, 3).map(track => renderPopularCard(track))}
             </div>
           </div>
 
@@ -246,27 +315,7 @@ export default function MarketplacePage() {
           <div className="mb-12">
             <h2 className="text-xl font-semibold mb-4">New Arrivals</h2>
             <div className="space-y-4">
-              {SAMPLE_TRACKS.map((track) => (
-                <div key={track.id} className="flex items-center gap-4 bg-white rounded-lg shadow p-4">
-                  <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
-                    <img 
-                      src={getImageUrl(track, 'New')}
-                      alt={track.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold truncate">{track.title}</h3>
-                    <p className="text-sm text-gray-600 truncate">{track.channel}</p>
-                  </div>
-                  <button 
-                    onClick={() => handlePlay(track)}
-                    className="flex items-center gap-2 text-primary hover:text-primary-dark"
-                  >
-                    <Play className="w-5 h-5" />
-                  </button>
-                </div>
-              ))}
+              {SAMPLE_TRACKS.slice(0, 3).map(track => renderNewArrivalCard(track))}
             </div>
           </div>
         </div>
@@ -296,20 +345,27 @@ export default function MarketplacePage() {
               </div>
               <div className="border-t pt-4">
                 <h3 className="font-semibold mb-2">Chapters</h3>
-                {renderChapters(currentTrack)}
+                {currentTrack.chapters.map((chapter, index) => (
+                  <div key={index} className="flex items-center gap-2 text-sm">
+                    <Play className="w-4 h-4" />
+                    <span className="flex-1">{chapter.title}</span>
+                    <span className="text-gray-500">{chapter.startTime}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
 
-    {/* Audio Player */}
-    <div className="sticky bottom-0 bg-white border-t border-gray-200 z-50">
-            <AudioPlayer
-              currentTrack={currentTrack}
-              onTrackEnd={handleTrackEnd}
-            />
-          </div>
-        </div>
-      );
+      {/* Audio Player */}
+      <div className="sticky bottom-0 bg-white border-t border-gray-200 z-50">
+        <AudioPlayer
+          currentTrack={currentTrack}
+          onTrackEnd={handleTrackEnd}
+          onTrackChange={(track) => setCurrentTrack(track)}
+        />
+      </div>
+    </div>
+  );
 }
