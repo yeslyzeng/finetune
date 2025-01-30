@@ -10,11 +10,12 @@ export interface Track {
   title: string;
   channel: string;
   url: string;
-  thumbnail: string;  // 确保这是必需的
+  thumbnail: string;
   description: string;
   duration: string;
   date: string;
   chapters: Chapter[];
+  transcript?: string; 
 }
 
 export interface AudioPlayerProps {

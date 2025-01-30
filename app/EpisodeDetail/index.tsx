@@ -26,10 +26,10 @@ const EpisodeDetail: React.FC<EpisodeDetailProps> = ({
 
   const handleChapterClick = (startTime: string) => {
     if (!currentTrack) return;
-    // Convert startTime (HH:MM:SS) to seconds for seeking
     const [hours, minutes, seconds] = startTime.split(':').map(Number);
-    const timeInSeconds = (hours * 3600) + (minutes * 60) + seconds;
-    // You'll need to implement the actual seeking logic here
+    const seekTime = (hours * 3600) + (minutes * 60) + seconds;
+    // TODO: 实现音频跳转功能
+    console.log('Seeking to:', seekTime);
   };
 
   const handleTrackEnd = () => {

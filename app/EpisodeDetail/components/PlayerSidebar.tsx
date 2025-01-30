@@ -1,5 +1,6 @@
 // app/EpisodeDetail/components/PlayerSidebar.tsx
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Play } from 'lucide-react';
 import type { PlayerSidebarProps } from '@/app/EpisodeDetail/types';
 
@@ -10,16 +11,23 @@ const PlayerSidebar: React.FC<PlayerSidebarProps> = ({ track, isOpen, onChapterC
     <div className={`fixed md:relative md:w-1/3 inset-y-0 right-0 w-full md:translate-x-0 transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'} bg-[#FEEFDD] border-l border-gray-200 z-40 overflow-y-auto`}>
       <div className="p-6">
         <div className="bg-white rounded-lg shadow p-4">
+        <div className="mb-4">
           <div className="aspect-video bg-gray-100 rounded-md mb-4 overflow-hidden">
-            <img 
-              src={track.thumbnail || "/episode-pic.jpg"}
-              alt={track.title}
-              className="w-full h-full object-cover"
-            />
+            <div className="relative w-full h-full">
+              <Image 
+                src={track.thumbnail || "/episode-pic.jpg"}
+                alt={track.title}
+                fill
+                className="object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/episode-pic.jpg";
+                }}
+              />
+            </div>
           </div>
-          <div className="mb-4">
-            <p className="text-sm opacity-80">Episode • {track.channel}</p>
-          </div>
+          <p className="text-sm opacity-80">Episode • {track.channel}</p>
+        </div>
           <h2 className="text-xl font-semibold mb-2">{track.title}</h2>
           <div className="flex items-center text-sm text-gray-600 space-x-2 mb-4">
             <span>{track.date}</span>

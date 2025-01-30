@@ -1,8 +1,7 @@
 // app/EpisodeDetail/components/ChaptersList.tsx
 import React from 'react';
 import { Play } from 'lucide-react';
-import type { ChaptersListProps, Chapter } from '@/app/EpisodeDetail/types';
-import type { Track } from '@/app/marketplace/components/AudioPlayer/types';
+import type { ChaptersListProps } from '@/app/EpisodeDetail/types';
 
 const ChaptersList: React.FC<ChaptersListProps> = ({ chapters, onChapterClick }) => {
   return (

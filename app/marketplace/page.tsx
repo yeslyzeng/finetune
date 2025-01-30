@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Play, Menu, X, Volume2 } from 'lucide-react';
+import { Search, Play } from 'lucide-react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';

@@ -1,5 +1,6 @@
 // app/EpisodeDetail/components/EpisodeHeader.tsx
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Play, Pause, Share, Download } from 'lucide-react';
 import type { EpisodeHeaderProps } from '@/app/EpisodeDetail/types';
 
@@ -9,14 +10,21 @@ const EpisodeHeader: React.FC<EpisodeHeaderProps> = ({ track, onPlay, isPlaying 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
       <div className="flex gap-6">
-        <div className="w-64 h-64 rounded-lg overflow-hidden">
-        <img
-          src={track.thumbnail ? track.thumbnail : "/episode-pic.jpg"}
-          alt={track.title}
-          className="w-full h-full object-cover"
-        />
-
+        <div className="w-1/3">
+          <div className="aspect-video relative rounded-lg overflow-hidden">
+            <Image
+              src={track.thumbnail || "/episode-pic.jpg"}
+              alt={track.title}
+              fill
+              className="object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/episode-pic.jpg";
+              }}
+            />
+          </div>
         </div>
+        
         <div className="flex-1">
           <div className="flex justify-between items-start mb-4">
             <div>
