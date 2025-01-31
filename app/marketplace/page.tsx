@@ -96,11 +96,11 @@ const SAMPLE_TRACKS: Track[] = [
 ];
 
 export default function MarketplacePage() {
-  const router = useRouter();
+  const router = useRouter();  // 只在这里声明一次
   const [currentTrack, setCurrentTrack] = useState<Track>(SAMPLE_TRACKS[0]);
   const [showSidebar, setShowSidebar] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState<string | null>(null);
-
+  
   // Add useEffect for debugging
   useEffect(() => {
     console.log('Current track thumbnail:', currentTrack.thumbnail);
@@ -151,6 +151,12 @@ export default function MarketplacePage() {
     );
   };
 
+  const navigateToChannel = (e: React.MouseEvent, channel: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(`/ChannelDetail/${channel}`);
+  };
+  
   const renderRecommendedCard = (track: Track) => (
     <div 
       key={track.id} 
@@ -178,7 +184,12 @@ export default function MarketplacePage() {
         
         <div className="absolute inset-0 p-6 flex flex-col">
           <div className="mb-auto">
-            <p className="text-sm text-white/80 mb-3">Episode • {track.channel}</p>
+            <button 
+              onClick={(e) => navigateToChannel(e, track.channel)}
+              className="text-sm text-white/80 mb-3 hover:text-white hover:underline"
+            >
+              Episode • {track.channel}
+            </button>
             <h2 className="text-xl font-bold leading-tight min-h-[3.5rem] line-clamp-2 hover:underline">
               {track.title}
             </h2>
@@ -204,7 +215,7 @@ export default function MarketplacePage() {
       </div>
     </div>
   );
-
+  
   const renderPopularCard = (track: Track) => (
     <div 
       key={track.id} 
@@ -227,7 +238,12 @@ export default function MarketplacePage() {
         />
       </div>
       <h3 className="font-semibold truncate hover:underline">{track.title}</h3>
-      <p className="text-sm text-gray-600 truncate">{track.channel}</p>
+      <button 
+        onClick={(e) => navigateToChannel(e, track.channel)}
+        className="text-sm text-gray-600 hover:text-[#FF4000] hover:underline block"
+      >
+        {track.channel}
+      </button>
       <button 
         onClick={(e) => {
           e.stopPropagation();
@@ -239,7 +255,7 @@ export default function MarketplacePage() {
       </button>
     </div>
   );
-
+  
   const renderNewArrivalCard = (track: Track) => (
     <div 
       key={track.id} 
@@ -263,7 +279,12 @@ export default function MarketplacePage() {
       </div>
       <div className="flex-1 min-w-0">
         <h3 className="font-semibold truncate hover:underline">{track.title}</h3>
-        <p className="text-sm text-gray-600 truncate">{track.channel}</p>
+        <button 
+          onClick={(e) => navigateToChannel(e, track.channel)}
+          className="text-sm text-gray-600 hover:text-[#FF4000] hover:underline block"
+        >
+          {track.channel}
+        </button>
       </div>
       <button 
         onClick={(e) => {

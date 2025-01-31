@@ -1,17 +1,32 @@
 // marketplace/components/AudioPlayer/index.tsx
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { Play, Pause, SkipBack, SkipForward, Volume2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { AudioPlayerProps } from './types';
 import { useAudio } from '../../hooks/useAudio';
 import { formatTime } from '../../utils/format';
 
+const defaultTrack = {
+  id: '',
+  title: '',
+  channel: '',
+  url: '',
+  thumbnail: '/episode-pic.jpg',
+  description: '',
+  duration: '',
+  date: '',
+  chapters: []
+};
+
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ 
-  currentTrack, 
+  currentTrack = defaultTrack, 
   onTrackEnd,
   onTrackChange 
 }) => {
+  const router = useRouter();
   const {
     audioRef,
     audioState,
@@ -32,26 +47,36 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     setVolume(parseFloat(e.target.value));
   };
 
+  const navigateToChannel = (e: React.MouseEvent, channel: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(`/ChannelDetail/${channel}`);
+  };
+
+  if (!currentTrack?.url) {
+    return null;
+  }
+
   return (
     <>
       <audio
         ref={audioRef}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
-        onEnded={() => onTrackEnd?.()}
+        onEnded={onTrackEnd}
         src={currentTrack.url}
       />
 
       <div className="h-20 border-t border-gray-200 bg-white flex items-center px-6 sticky bottom-0">
         <div className="flex items-center gap-4 w-1/3">
           <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden">
-            {/* Image container for track thumbnail */}
             <div className="relative w-full h-full">
               <Image 
                 src={currentTrack.thumbnail || '/episode-pic.jpg'} 
-                alt={currentTrack.title}
+                alt={currentTrack.title || 'Track thumbnail'}
                 fill
                 className="object-cover rounded"
+                sizes="48px"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = '/episode-pic.jpg';
@@ -61,7 +86,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           </div>
           <div>
             <h4 className="font-semibold">{currentTrack.title}</h4>
-            <p className="text-sm text-gray-600">{currentTrack.channel}</p>
+            <button
+              onClick={(e) => navigateToChannel(e, currentTrack.channel)}
+              className="text-sm text-gray-600 hover:text-[#FF4000] hover:underline"
+            >
+              {currentTrack.channel}
+            </button>
           </div>
         </div>
         
@@ -74,7 +104,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
               <SkipBack />
             </button>
             <button 
-              className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center hover:bg-opacity-80"
+              className="w-8 h-8 bg-[#FF4000] text-white rounded-full flex items-center justify-center hover:bg-[#FF4000]/90"
               onClick={togglePlay}
             >
               {audioState.isPlaying ? 
@@ -98,7 +128,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
               onClick={handleProgressClick}
             >
               <div 
-                className="h-full bg-primary rounded-full relative"
+                className="h-full bg-[#FF4000] rounded-full relative"
                 style={{ width: `${(audioState.currentTime / audioState.duration) * 100}%` }}
               >
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow"></div>
