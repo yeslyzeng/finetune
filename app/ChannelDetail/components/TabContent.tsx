@@ -20,8 +20,8 @@ const AboutTab: React.FC<TabContentProps> = ({ channel }) => {
         <div className="bg-gray-50 rounded-lg p-6">
           <div className="relative">
             <p className={`text-gray-600 ${!isTeamInfoExpanded ? 'line-clamp-2' : ''}`}>
-              <strong>Kolento – Founder & CEO of Fingo Africa</strong><br/>
-              Kolento is the visionary founder of Fingo Africa, the first pan-African neobank designed for the youth. With a mission to redefine banking, he is dedicated to making financial services more accessible, affordable, and user-friendly. Under his leadership, Fingo is driving financial inclusion across Africa through digital innovation, strategic partnerships, and a deep understanding of young consumers' needs.
+              <strong>Kolento &ndash; Founder &amp; CEO of Fingo Africa</strong><br/>
+              Kolento is the visionary founder of Fingo Africa, the first pan-African neobank designed for the youth. With a mission to redefine banking, he is dedicated to making financial services more accessible, affordable, and user-friendly. Under his leadership, Fingo is driving financial inclusion across Africa through digital innovation, strategic partnerships, and a deep understanding of young consumers&apos; needs.
             </p>
             <button 
               onClick={() => setIsTeamInfoExpanded(!isTeamInfoExpanded)}
@@ -39,7 +39,7 @@ const AboutTab: React.FC<TabContentProps> = ({ channel }) => {
         <div className="bg-gray-50 rounded-lg p-6">
           <div className="relative">
             <p className={`text-gray-600 ${!isDescriptionExpanded ? 'line-clamp-2' : ''}`}>
-              Follow us as we explore the dynamic world of fintech in Africa, featuring interviews with industry leaders, discussions on financial inclusion, and insights into how Fingo Africa is revolutionizing banking for the next generation.
+              Follow us as we explore the dynamic world of fintech in Africa, featuring interviews with industry leaders, discussions on financial inclusion, and insights into how Fingo Africa is revolutionizing banking for the next generation. Our channel brings you compelling stories of innovation, transformation, and the future of financial services across the continent. Join us on this journey as we share the challenges, triumphs, and groundbreaking solutions that are shaping Africa&apos;s financial landscape.
             </p>
             <button 
               onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
@@ -71,6 +71,7 @@ const AboutTab: React.FC<TabContentProps> = ({ channel }) => {
 const EpisodesTab: React.FC<TabContentProps> = ({ channel }) => {
   const router = useRouter();
   
+  // Original episodes data restored
   const episodes = [
     {
       id: '1',

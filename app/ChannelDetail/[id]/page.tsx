@@ -2,15 +2,8 @@
 
 import React, { Suspense } from 'react';
 import { useParams } from 'next/navigation';
-import dynamic from 'next/dynamic';
 import { Channel } from '../types';
 import ChannelDetail from '..';
-
-// 动态导入 AudioPlayer
-const AudioPlayer = dynamic(() => import('../../marketplace/components/AudioPlayer'), { 
-  ssr: false,
-  loading: () => <div className="h-20 bg-white border-t border-gray-200"></div>
-});
 
 // Mock data - 确保包含完整的 episodes 数据
 const getChannelById = (id: string): Channel => {
@@ -50,7 +43,8 @@ const getChannelById = (id: string): Channel => {
 
 export default function ChannelPage() {
   const params = useParams();
-  const channel = getChannelById(params.id as string);
+  const channelId = params.id as string;
+  const channel = getChannelById(channelId);
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
