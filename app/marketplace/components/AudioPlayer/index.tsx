@@ -44,20 +44,21 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
       <div className="h-20 border-t border-gray-200 bg-white flex items-center px-6 sticky bottom-0">
         <div className="flex items-center gap-4 w-1/3">
-        <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden">  // 移除 flex 相关类
-          <div className="relative w-full h-full">
-            <Image 
-              src={currentTrack.thumbnail || '/episode-pic.jpg'} 
-              alt={currentTrack.title}
-              fill
-              className="object-cover rounded"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = '/episode-pic.jpg';
-              }}
-            />
+          <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden">
+            {/* Image container for track thumbnail */}
+            <div className="relative w-full h-full">
+              <Image 
+                src={currentTrack.thumbnail || '/episode-pic.jpg'} 
+                alt={currentTrack.title}
+                fill
+                className="object-cover rounded"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/episode-pic.jpg';
+                }}
+              />
+            </div>
           </div>
-        </div>
           <div>
             <h4 className="font-semibold">{currentTrack.title}</h4>
             <p className="text-sm text-gray-600">{currentTrack.channel}</p>
@@ -68,7 +69,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           <div className="flex items-center gap-4">
             <button 
               className="w-5 h-5 text-gray-600 hover:text-gray-900"
-              onClick={() => onTrackChange?.(currentTrack)} // 实际应用中需要获取上一首
+              onClick={() => onTrackChange?.(currentTrack)} // Placeholder for previous track
             >
               <SkipBack />
             </button>
@@ -83,7 +84,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
             </button>
             <button 
               className="w-5 h-5 text-gray-600 hover:text-gray-900"
-              onClick={() => onTrackChange?.(currentTrack)} // 实际应用中需要获取下一首
+              onClick={() => onTrackChange?.(currentTrack)} // Placeholder for next track
             >
               <SkipForward />
             </button>
