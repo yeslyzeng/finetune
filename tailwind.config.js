@@ -16,6 +16,12 @@ module.exports = {
       },
     },
     extend: {
+      // 添加字体配置
+      fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)'],
+        lexend: ['var(--font-lexend-exa)'],
+      },
       colors: {
         border: "var(--border)",
         input: "var(--input)",
