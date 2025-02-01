@@ -78,7 +78,7 @@ export default function Home() {
                     From Pitch to <span className="text-[#333333]">Funded</span>
                   </div>
                   <div className="text-7xl md:text-8xl">
-                    <span className="bg-gradient-to-r from-[#FF6B3D] to-[#FF9F7C] bg-clip-text text-transparent">FineTune</span>
+                    <span className="bg-gradient-to-r from-[#FF6B3D] to-[#FF9F7C] bg-clip-text text-transparent">FinTune</span>
                     <span className="text-[#333333]"> it</span>
                   </div>
                 </div>
